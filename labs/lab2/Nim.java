@@ -6,6 +6,7 @@ public class Nim {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 	
 		ArgsProcessor ap = new ArgsProcessor(args);
 		int startSticks = ap.nextInt("How many sticks to start with?");
