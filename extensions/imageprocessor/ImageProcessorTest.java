@@ -216,7 +216,7 @@ public class ImageProcessorTest {
 			int z = rand.nextInt(255 - 2*tolerance) + tolerance;
 
 			Color c1 = new Color(x, y, z);
-			Color c2 = new Color(x - tolerance, y + tolerance, z + tolerance/2);
+			Color c2 = new Color(x + tolerance, y + tolerance, z + tolerance/2);
 
 			assertEquals("You are not accounting properly for tolerance, given the colors "
 					+ c1 + " and " + c2 + " with tolerance " + tolerance
