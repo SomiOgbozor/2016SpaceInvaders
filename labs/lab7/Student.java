@@ -13,7 +13,7 @@ public class Student {
 	private int credits;
 	private double GPA;
 	private double score;
-	private double grade;
+	
 	
 	
 	
