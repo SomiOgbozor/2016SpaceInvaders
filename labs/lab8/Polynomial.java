@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 public class Polynomial {
 
+
+
 	final private LinkedList<Double> list;
 
 	/**
@@ -14,31 +16,130 @@ public class Polynomial {
 		//
 		// Set the instance variable (list) to be a new linked list of Double type
 		//
-		list = null;   // FIXME
-	}
 
+		this.list = new LinkedList<Double>();
+
+	}
+	/**
+	 * Generates a string of the polynomial
+	 */
 	public String toString() {
-		return "A polynomial"; // FIXME
+		String polyString = "";
+		for (int i=0; i < list.size(); i++){
+			polyString +=  list.get(i) + "x^" + i;
+		}
+		return polyString;
 	}
 
+	/**
+	 * 
+	 * @param coeff takes in a coeffiicient
+	 * @return adds a coefficient term
+	 */
 	public Polynomial addTerm(double coeff) {
-		//
-		// FIXME
-		//
-		return this;  // required by lab spec
+		this.list.add(coeff);
+		return this;
 	}
 
+	
+	/**
+	 * 
+	 *
+	 * @param x takes in the x value
+	 * @param list2 generates a new list
+	 * @return the evaluation of the list
+	 */
+	private double helper(double x, Iterator<Double> list2){
+		//		if (listPos == this.list.size()){
+		//			return (this.list.get(listPos) * Math.pow(x, listPos));
+		//					
+		//		}
+		//		listPos++;
+		//			return (this.list.get(listPos) * Math.pow(x, listPos)) + helper(x,listPos);
+		if (list2.hasNext() == false){
+			return 0;
+		}
+		else{
+			return  list2.next() + x*helper(x, list2) ;
+		}
+	}
+
+	/**
+	 * 
+	 * @param x takes in a value
+	 * @return returns the polynomial evaluated at the x value
+	 */
 	public double evaluate(double x) {
-		return Math.random();  // FIXME
+//		if (this.list.isEmpty()){
+//			return 0;
+//		}
+//		int listPos = 1;
+		return helper(x, list.iterator());
 	}
-	
+
+/**
+ * 
+ * @return the derivative of the polynomial
+ */
 	public Polynomial derivative() {
-		return null;   // FIXME
+		Polynomial deriv = new Polynomial();
+
+		if(this.list.isEmpty()){
+			return deriv;
+		}
+		else{
+			for (int i=1; i < this.list.size(); i++){
+				deriv.list.add(this.list.get(i)*i);
+			}
+			return deriv;
+
+		}
+
+
 	}
+
 	
+	/**
+	 * 
+	 * @param another creates a new polynomial
+	 * @return the sum of the 2 polynomial
+	 */
 	public Polynomial sum(Polynomial another) {
-		return null;   // FIXME
+		if (this.list.size() > another.list.size()){
+			Polynomial sumList = new Polynomial();
+			
+				for (int j=0; j < another.list.size(); j++){
+					sumList.list.add(this.list.get(j) + another.list.get(j));
+				}
+				for (int i=another.list.size(); i < this.list.size(); i++){
+				sumList.list.add(this.list.get(i));
+			}
+			return sumList;
+		}
+		else if (another.list.size() > this.list.size()){
+			Polynomial sumList = new Polynomial();
+				for (int j=0; j < this.list.size(); j++){
+					sumList.list.add(this.list.get(j) + another.list.get(j));
+				}
+				for (int i = list.size(); i < another.list.size(); i++){
+				sumList.list.add(another.list.get(i));
+			}
+			return sumList;
+		}
+		else{
+			Polynomial sumList = new Polynomial();
+			for (int i=0; i < this.list.size(); i++){
+				sumList.list.add(this.list.get(i) + another.list.get(i));
+			}
+			return sumList;
+		}
+
 	}
+
+
+	//public static void main(String[] args) {
+	//}
+
 
 	/**
 	 * This is the "equals" method that is called by
